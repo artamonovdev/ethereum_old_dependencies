@@ -1,0 +1,17 @@
+#!/bin/bash
+
+echo "Installing parity..."
+sudo add-apt-repository ppa:ethereum/ethereum -y
+sudo apt-get update
+sudo apt-get install solc
+sudo apt-get -y install libssl-dev
+echo "Solc version"
+solc --version
+wget http://d1h4xl4cr1h0mo.cloudfront.net/v$PARITY\/x86_64-unknown-linux-gnu/parity_$PARITY\_amd64.deb
+sudo dpkg -i parity_$PARITY\_amd64.deb
+
+echo "Setuping parity..."
+mkdir -p ~/.local/share/io.parity.ethereum/keys/DevelopmentChain
+chown -R travis:travis ~/.local/share/io.parity.ethereum
+echo $devwallet > ~/.local/share/io.parity.ethereum/keys/DevelopmentChain/UTC--2017-03-31T14-19-47Z--c05e3b8b-18aa-ab4f-c5ec-09f555bf5357
+echo $devpassword > ~/.devpass
